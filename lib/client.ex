@@ -10,7 +10,7 @@ defmodule Universa.Supervisor.Client do
 
   def init(:ok) do
     children = [
-      worker(Universa.Console, [Universa.Console])
+      worker(Universa.Console, [])
     ]
     
     supervise(children, strategy: :one_for_one)
