@@ -6,7 +6,7 @@ defmodule Universa.TerminalSupervisor do
   use Supervisor
   
   def start_link do    
-    Supervisor.start_link(__MODULE__, :ok)
+    Supervisor.start_link(__MODULE__, :ok, name: Universa.TerminalSupervisor)
   end
 
   def init(:ok) do

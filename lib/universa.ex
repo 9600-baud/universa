@@ -11,7 +11,8 @@ defmodule Universa do
     children = [
       supervisor(Task.Supervisor, [[name: Universa.TaskSupervisor]]),
       supervisor(Universa.TerminalSupervisor, []),
-      worker(Task, [Universa.Server, :accept, [9001]])
+      #supervisor(Universa.EntityRegistry,     []),
+      worker(Task, [Universa.Server, :accept, [9001]]),
     ]
 
     Supervisor.start_link(children, [strategy: :one_for_one, name: Universa.Supervisor])

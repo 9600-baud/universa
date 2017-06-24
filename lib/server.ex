@@ -29,10 +29,8 @@ defmodule Universa.Server do
   end
 
   defp serve(socket) do
-    socket
-    |> read_line()
-    |> write_line(socket)
-
+    line = socket |> read_line()
+    IO.puts("Got line: #{line}")
     serve(socket)
   end
 
