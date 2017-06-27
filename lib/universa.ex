@@ -11,7 +11,7 @@ defmodule Universa do
     children = [
       supervisor(Task.Supervisor, [[name: Universa.TaskSupervisor]]),
       supervisor(Universa.TerminalSupervisor, []),
-      #supervisor(Universa.EntityRegistry,     []),
+      supervisor(Universa.EntitySupervisor,   []),
       worker(Task, [Universa.Server, :accept, [9001]]),
     ]
 

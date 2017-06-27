@@ -1,4 +1,8 @@
 defmodule Universa.Entity do
+  @moduledoc """
+  Agent and entity API
+  """
+  
   defstruct [
     uuid:         nil,
     name:         "Unknown",
@@ -7,6 +11,7 @@ defmodule Universa.Entity do
     inventory:    [],
     living:       nil,
     active:       false,
+    peer:         nil,
   ]
 
   def new(type \\ :player) do
@@ -40,5 +45,15 @@ defmodule Universa.Entity do
 	  living:   false,
 	}
     end
+  end
+
+  ## Agent functions ##
+  
+  def peer(bucket, peer) do
+    Agent.update(bucket, &Map.put(&1, :peer, peer))
+  end
+  
+  def peer(bucket) do
+    Agent.get(bucket, &Map.get(&1, :peer))
   end
 end

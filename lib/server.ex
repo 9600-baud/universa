@@ -24,14 +24,19 @@ defmodule Universa.Server do
 
   defp loop_acceptor(socket) do
     {:ok, client} = :gen_tcp.accept(socket)
+
+    # Create an entity and stamp a peer addr,port pair to it:
+    {:ok, entity} = Universa.EntitySupervisor.register_entity :player
+    Universa.EntityBucket.peer(:inet.peername(client))
+    
   {:ok, pid} = Task.Supervisor.start_child(Universa.TaskSupervisor, fn -> serve(client) end)
     loop_acceptor(socket)
   end
 
-  defp serve(socket) do
-    line = socket |> read_line()
+  defp serve(client) do
+    line = client |> read_line()
     IO.puts("Got line: #{line}")
-    serve(socket)
+    serve(client)
   end
 
   defp read_line(socket) do
